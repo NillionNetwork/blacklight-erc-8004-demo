@@ -8,38 +8,15 @@ Parses and prints the ValidationRequest event.
 import os
 import re
 import sys
+import warnings
 from pathlib import Path
 
 from dotenv import load_dotenv
 from web3 import Web3
 
-VALIDATION_REGISTRY_ABI = [
-    {
-        "name": "validationRequest",
-        "type": "function",
-        "stateMutability": "nonpayable",
-        "inputs": [
-            {"name": "validatorAddress", "type": "address"},
-            {"name": "agentId", "type": "uint256"},
-            {"name": "requestURI", "type": "string"},
-            {"name": "requestHash", "type": "bytes32"},
-            {"name": "snapshotId", "type": "uint64"},
-        ],
-        "outputs": [],
-    },
-    {
-        "name": "ValidationRequest",
-        "type": "event",
-        "anonymous": False,
-        "inputs": [
-            {"name": "validatorAddress", "type": "address", "indexed": True},
-            {"name": "agentId", "type": "uint256", "indexed": True},
-            {"name": "requestURI", "type": "string", "indexed": False},
-            {"name": "requestHash", "type": "bytes32", "indexed": True},
-        ],
-    },
-]
+from demo_erc8004.abi import VALIDATION_REGISTRY_ABI
 
+warnings.filterwarnings("ignore", category=UserWarning, module="eth_utils.functional")
 
 def main():
     load_dotenv()

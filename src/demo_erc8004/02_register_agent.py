@@ -8,51 +8,15 @@ by calling ownerOf, tokenURI, and getAgentWallet.
 import os
 import re
 import sys
+import warnings
 from pathlib import Path
 
 from dotenv import load_dotenv
 from web3 import Web3
 
-IDENTITY_REGISTRY_ABI = [
-    {
-        "name": "register",
-        "type": "function",
-        "stateMutability": "nonpayable",
-        "inputs": [{"name": "agentURI", "type": "string"}],
-        "outputs": [{"name": "", "type": "uint256"}],
-    },
-    {
-        "name": "ownerOf",
-        "type": "function",
-        "stateMutability": "view",
-        "inputs": [{"name": "agentId", "type": "uint256"}],
-        "outputs": [{"name": "", "type": "address"}],
-    },
-    {
-        "name": "tokenURI",
-        "type": "function",
-        "stateMutability": "view",
-        "inputs": [{"name": "agentId", "type": "uint256"}],
-        "outputs": [{"name": "", "type": "string"}],
-    },
-    {
-        "name": "getAgentWallet",
-        "type": "function",
-        "stateMutability": "view",
-        "inputs": [{"name": "agentId", "type": "uint256"}],
-        "outputs": [{"name": "", "type": "address"}],
-    },
-    {
-        "name": "Transfer",
-        "type": "event",
-        "anonymous": False,
-        "inputs": [
-            {"name": "from", "type": "address", "indexed": True},
-            {"name": "to", "type": "address", "indexed": True},
-            {"name": "tokenId", "type": "uint256", "indexed": True},
-        ],
-    },
-]
+from demo_erc8004.abi import IDENTITY_REGISTRY_ABI
+
+warnings.filterwarnings("ignore", category=UserWarning, module="eth_utils.functional")
 
 ZERO_ADDRESS = "0x0000000000000000000000000000000000000000"
 

@@ -7,27 +7,14 @@ and/or AGENT_ID.
 
 import os
 import sys
+import warnings
 
 from dotenv import load_dotenv
 from web3 import Web3
 
-VALIDATION_REGISTRY_ABI = [
-    {
-        "name": "ValidationResponse",
-        "type": "event",
-        "anonymous": False,
-        "inputs": [
-            {"name": "validatorAddress", "type": "address", "indexed": True},
-            {"name": "agentId", "type": "uint256", "indexed": True},
-            {"name": "requestHash", "type": "bytes32", "indexed": True},
-            {"name": "response", "type": "uint8", "indexed": False},
-            {"name": "responseURI", "type": "string", "indexed": False},
-            {"name": "responseHash", "type": "bytes32", "indexed": False},
-            {"name": "tag", "type": "string", "indexed": False},
-        ],
-    },
-]
+from demo_erc8004.abi import VALIDATION_REGISTRY_ABI
 
+warnings.filterwarnings("ignore", category=UserWarning, module="eth_utils.functional")
 
 def main():
     load_dotenv()
